@@ -2,13 +2,25 @@ name: setup-universe
 
 on:
   pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - labeled
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+  require-label:
+    uses: autowarefoundation/autoware-github-actions/.github/workflows/require-label.yaml@v1
+    with:
+      label: run:health-check
+
   setup-universe:
+    needs: require-label
+    if: ${{ needs.require-label.outputs.result == 'true' }}
     runs-on: [self-hosted, Linux, X64]
     strategy:
       fail-fast: false
@@ -28,6 +40,18 @@ jobs:
         if: always()
         run: |
           df -h
+
+      - name: Configure apt retries and mirror fallback
+        run: |
+          echo 'Acquire::Retries "5";' > /etc/apt/apt.conf.d/99-retries
+          echo 'Acquire::http::Timeout "30";' >> /etc/apt/apt.conf.d/99-retries
+          echo 'Acquire::https::Timeout "30";' >> /etc/apt/apt.conf.d/99-retries
+          printf 'http://azure.archive.ubuntu.com/ubuntu\tpriority:1\nhttp://archive.ubuntu.com/ubuntu\tpriority:2\n' > /etc/apt/ubuntu-mirrors.list
+          for f in /etc/apt/sources.list /etc/apt/sources.list.d/ubuntu.sources; do
+            if [ -f "$f" ]; then
+              sed -E -i 's|http://archive\.ubuntu\.com/ubuntu/?|mirror+file:///etc/apt/ubuntu-mirrors.list|g' "$f"
+            fi
+          done
 
       - name: Install dependencies
         run: |

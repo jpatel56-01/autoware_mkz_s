@@ -15,28 +15,37 @@ repositories:
   core/autoware_cmake:
     type: git
     url: https://github.com/autowarefoundation/autoware_cmake.git
-    version: 1.1.0
+    version: 1.2.0
   core/autoware_utils:
     type: git
     url: https://github.com/autowarefoundation/autoware_utils.git
-    version: 1.5.0
+    version: 1.7.1
   core/autoware_lanelet2_extension:
     type: git
     url: https://github.com/autowarefoundation/autoware_lanelet2_extension.git
-    version: 0.11.0
+    version: 0.12.0
   core/autoware_core:
     type: git
     url: https://github.com/autowarefoundation/autoware_core.git
-    version: 1.7.0
+    version: 1.7.2
   core/autoware_rviz_plugins:
     type: git
     url: https://github.com/autowarefoundation/autoware_rviz_plugins.git
     version: 0.4.0
+  core/autoware_system_designer:
+    type: git
+    url: https://github.com/autowarefoundation/autoware_system_designer.git
+    version: v0.3.2
+  # Temporary pin, see https://github.com/autowarefoundation/autoware_core/issues/1031
+  core/external/rviz_2d_overlay_plugins:
+    type: git
+    url: https://github.com/teamspatzenhirn/rviz_2d_overlay_plugins.git
+    version: 1.4.0
   # universe
   universe/autoware_universe:
     type: git
     url: https://github.com/autowarefoundation/autoware_universe.git
-    version: 0.50.0
+    version: 0.50.2
   universe/external/tier4_autoware_msgs:
     type: git
     url: https://github.com/tier4/tier4_autoware_msgs.git
@@ -90,14 +99,6 @@ repositories:
     type: git
     url: https://github.com/autowarefoundation/managed_transform_buffer.git
     version: 0.2.0
-  universe/external/acados:
-    type: git
-    url: https://github.com/acados/acados.git
-    version: v0.5.3
-  universe/external/tera_renderer:
-    type: git
-    url: https://github.com/acados/tera_renderer.git
-    version: v0.2.0
   # launcher
   launcher/autoware_launch:
     type: git
@@ -111,11 +112,11 @@ repositories:
   sensor_component/external/nebula:
     type: git
     url: https://github.com/tier4/nebula.git
-    version: v0.3.2.2
+    version: v1.1.0
   sensor_component/external/sync_tooling_msgs:
     type: git
     url: https://github.com/tier4/sync_tooling_msgs.git
-    version: 0.2.6
+    version: 0.2.7
   # Fork of transport_drivers that enables reduction of copy operations
   sensor_component/transport_drivers:
     type: git
@@ -134,4 +135,4 @@ repositories:
   middleware/external/agnocast:
     type: git
     url: https://github.com/tier4/agnocast.git
-    version: backport-jazzy-support-v2.1.2
+    version: 2.3.3
